@@ -1,7 +1,6 @@
 package shortestpath
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -70,12 +69,14 @@ func TestAStar3(t *testing.T) {
 	if err != nil || path == nil || len(path) != 5 {
 		t.Errorf("TestAStar3: AStar failed: %v", err)
 	}
+	expectedPath := []int{0, 1, 4, 7, 8}
+	// fmt.Errorf("3: %v", path)
+	for i, v := range path {
+		if expectedPath[i] != v.Value {
+			t.Errorf("invalid path")
+		}
+	}
 
-	fmt.Errorf("3: %v", path)
-	// if path := preds.GetShortestPath(nodes[8]); len(path) != 5 || path[0] != nodes[0] ||
-	// 	path[1] != nodes[1] || path[2] != nodes[4] || path[3] != nodes[7] || path[4] != nodes[8] {
-	// 	t.Error("TestAStar3: invalid path")
-	// }
 }
 
 func TestAStar4(t *testing.T) {
@@ -90,12 +91,12 @@ func TestAStar4(t *testing.T) {
 	if err != nil || path == nil || len(path) != 3 {
 		t.Errorf("TestAStar4: AStar failed: %v", err)
 	}
-
-	// if path := preds.GetShortestPath(nodes[2]); len(path) != 3 ||
-	// 	path[0] != nodes[1] || path[1] != nodes[0] || path[2] != nodes[2] {
-	// 	t.Error("TestAStar4: invalid path")
-	// }
-	fmt.Errorf("4: %v", path)
+	expectedPath := []int{1, 0, 2}
+	for i, v := range path {
+		if expectedPath[i] != v.Value {
+			t.Errorf("invalid path")
+		}
+	}
 }
 
 func TestAStar5(t *testing.T) {
@@ -106,18 +107,13 @@ func TestAStar5(t *testing.T) {
 	if err == nil || path != nil || len(path) != 0 {
 		t.Errorf("TestAStar5: AStar failed: %v", err)
 	}
-
-	// if path := path.GetShortestPath(nodes[1]); len(path) != 0 {
-	// 	t.Errorf("TestAStar5: invalid path, %v", len(path))
-	// }
-	fmt.Errorf("5: %v", path)
 }
 
 func TestAStar6(t *testing.T) {
 	g := NewGraph[string]()
 
-	preds, err := g.AStar(nil, nil, func(n *Node[string]) float64 { return float64(n.Id) })
-	if err == nil || preds != nil {
+	path, err := g.AStar(nil, nil, func(n *Node[string]) float64 { return float64(n.Id) })
+	if err == nil || path != nil {
 		t.Error("TestAStar6: AStar succeeded")
 	}
 }
