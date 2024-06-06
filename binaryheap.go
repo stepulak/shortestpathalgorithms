@@ -18,6 +18,15 @@ func (h *BinaryHeap[TValue]) Size() int {
 	return len(h.Tree)
 }
 
+func (h *BinaryHeap[TValue]) Contains(valueToFind TValue, cmp CompareFunc[TValue]) bool {
+	for _, value := range h.Tree {
+		if cmp(value, valueToFind) {
+			return true
+		}
+	}
+	return false
+}
+
 // Push value to the heap
 func (h *BinaryHeap[TValue]) Push(value TValue) {
 	h.Tree = append(h.Tree, value)

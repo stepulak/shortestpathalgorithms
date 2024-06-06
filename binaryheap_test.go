@@ -41,6 +41,11 @@ func TestBinaryHeap(t *testing.T) {
 		t.Error("TestBinaryHeap: head still should be -2, size should be 4")
 	}
 
+	findCmp := func(a, b int) bool { return a == b }
+	if !bh.Contains(1, findCmp) || !bh.Contains(-1, findCmp) || !bh.Contains(-2, findCmp) || !bh.Contains(2, findCmp) {
+		t.Error("TestBinaryHeap: unable to find elements present in binary heap")
+	}
+
 	// Pop and check bubble down algorithm
 	if val, ok := bh.Pop(); val != -2 || !ok || bh.Size() != 3 {
 		t.Error("TestBinaryHeap: pop should be -1, size should be 3")
